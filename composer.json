@@ -1,0 +1,10 @@
+{
+    "name": "laravolt/onlyoffice",
+    "description": "Embedding onlyoffice",
+    "autoload": {
+        "psr-4": {
+            "Laravolt\\Onlyoffice\\": "src/"
+        }
+    },
+    "require": {}
+}
