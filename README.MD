@@ -19,7 +19,7 @@ GROUPOFFICE_URL=domain.groupoffice.com
 ONLYOFFICE_URL=domain.onlyoffice.com
 ```
 
-Masukan isLogin di except EncryptCookies.
+Masukan isLogin di except `App/Http/Middleware/EncryptCookies.php`
 ```
 $except = ['isLogin']
 ```
