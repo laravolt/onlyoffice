@@ -33,13 +33,16 @@ Tambahkan Environment Groupoffice dan Onlyoffice ke `config/services.php`
 ```
 
 ## Usage
-```
+```html
 <!-- Embeded Onlyoffice -->
 <x-onlyoffice id="2"></x-onlyoffice>
-// id di dapatkan dari id file.
 
-<!-- Embeded Onlyoffice readonly mode>
+<!-- Embeded Onlyoffice readonly mode> -->
 <x-onlyoffice id="2" readonly></x-onlyoffice>
 ```
+
+Keterangan
+id = id file dari dokumen
+readonly = digunakan jika menginginkan embedding dengan mode view
 
 
