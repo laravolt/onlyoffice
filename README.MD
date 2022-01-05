@@ -20,12 +20,12 @@ ONLYOFFICE_URL=domain.onlyoffice.com
 ```
 
 Masukan isLogin di except `App/Http/Middleware/EncryptCookies.php`
-```
+```php
 $except = ['isLogin']
 ```
 
 Tambahkan Environment Groupoffice dan Onlyoffice ke `config/services.php`
-```
+```php
 'onlyoffice' => [
     'groupoffice_url' => env('GROUPOFFICE_URL'),
     'onlyoffice_url' => env('ONLYOFFICE_URL')
@@ -41,8 +41,8 @@ Tambahkan Environment Groupoffice dan Onlyoffice ke `config/services.php`
 <x-onlyoffice id="2" readonly></x-onlyoffice>
 ```
 
-Keterangan
-id = id file dari dokumen
-readonly = digunakan jika menginginkan embedding dengan mode view
+#### Keterangan
+id = id file dari dokumen__
+readonly = digunakan jika menginginkan embedding dengan mode view__
 
 
