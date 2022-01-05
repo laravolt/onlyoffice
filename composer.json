@@ -17,7 +17,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Laravolt\\Onlyoffice\\": "src/"
+            "Laravolt\\OnlyOffice\\": "src/"
         }
     },
     "require": {
@@ -27,7 +27,7 @@
     "extra": {
         "laravel": {
             "providers" : [
-                "Laravolt\\Onlyoffice\\OnlyofficeServiceProvider"
+                "Laravolt\\OnlyOffice\\OnlyOfficeServiceProvider"
             ]
         }
     },

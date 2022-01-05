@@ -5,7 +5,7 @@ namespace Laravolt\Onlyoffice;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-class OnlyofficeServiceProvider extends ServiceProvider
+class OnlyOfficeServiceProvider extends ServiceProvider
 {
     /**
      * Register services.

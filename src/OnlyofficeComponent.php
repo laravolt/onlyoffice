@@ -1,13 +1,12 @@
 <?php
 
-namespace Laravolt\Onlyoffice;
+namespace Laravolt\OnlyOffice;
 
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Request;
 use Illuminate\View\Component;
 
-class OnlyofficeComponent extends Component
+class OnlyOfficeComponent extends Component
 {
     /**
      * Create a new component instance.

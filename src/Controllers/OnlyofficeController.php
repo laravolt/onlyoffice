@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravolt\Onlyoffice\Controllers;
+namespace Laravolt\OnlyOffice\Controllers;
 
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
 
-class OnlyofficeController extends Controller
+class OnlyOfficeController extends Controller
 {
     public function onlyofficeLogin()
     {
