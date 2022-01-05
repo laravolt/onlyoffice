@@ -15,18 +15,18 @@ class OnlyOfficeComponent extends Component
      */
 
      private int $id;
-     public bool $readonly;
+     public bool $readOnly;
      public bool $isLogin = false;
-     public string $uri_groupoffice;
-     public string $uri_onlyoffice;
+     public string $urlGroupOffice;
+     public string $urlOnlyOffice;
      public string $document = "";
      public $api;
     public function __construct($id, $readonly = false)
     {
         $this->id = $id;
-        $this->readonly = $readonly;
-        $this->uri_groupoffice = config()->get('services.onlyoffice.groupoffice_url');
-        $this->uri_onlyoffice = config()->get('services.onlyoffice.onlyoffice_url');
+        $this->readOnly = $readonly;
+        $this->urlGroupoffice = config()->get('services.onlyoffice.groupoffice_url');
+        $this->urlOnlyoffice = config()->get('services.onlyoffice.onlyoffice_url');
     }
 
     /**
