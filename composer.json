@@ -1,10 +1,23 @@
 {
     "name": "laravolt/onlyoffice",
     "description": "Embedding onlyoffice",
+    "keywords": [
+        "laravolt",
+        "onlyoffice",
+        "laravel",
+        "groupoffice"
+    ],
     "autoload": {
         "psr-4": {
             "Laravolt\\Onlyoffice\\": "src/"
         }
     },
-    "require": {}
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers" : [
+                "Laravolt\\Onlyoffice\\OnlyofficeServiceProvider"
+            ]
+        }
+    }
 }
