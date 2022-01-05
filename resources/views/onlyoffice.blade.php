@@ -1,5 +1,5 @@
 @push('head')
-    <script id="scriptApi" type="text/javascript" src="{!! $uri_onlyoffice !!}/web-apps/apps/api/documents/api.js"></script>
+    <script id="scriptApi" type="text/javascript" src="{!! $urlOnlyOffice !!}/web-apps/apps/api/documents/api.js"></script>
 @endpush
 
 <div style="height: 100vh">

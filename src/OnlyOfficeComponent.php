@@ -25,8 +25,8 @@ class OnlyOfficeComponent extends Component
     {
         $this->id = $id;
         $this->readOnly = $readonly;
-        $this->urlGroupoffice = config()->get('services.onlyoffice.groupoffice_url');
-        $this->urlOnlyoffice = config()->get('services.onlyoffice.onlyoffice_url');
+        $this->urlGroupOffice = config()->get('services.onlyoffice.groupoffice_url');
+        $this->urlOnlyOffice = config()->get('services.onlyoffice.onlyoffice_url');
     }
 
     /**
@@ -37,14 +37,14 @@ class OnlyOfficeComponent extends Component
     public function render()
     {
         $this->checkIsLogin();
-        $this->isModeView($this->readonly);
+        $this->isModeView($this->readOnly);
         return view('onlyoffice::onlyoffice');
     }
 
     public function fetchApi($id, $token)
     {
         $res = Http::withHeaders(['Authorization' => $token])
-                    ->get($this->uri_groupoffice."/api/2.0/files/file/$id/openedit");
+                    ->get($this->urlGroupOffice."/api/2.0/files/file/$id/openedit");
         return $this->api = $res;
     }
 
