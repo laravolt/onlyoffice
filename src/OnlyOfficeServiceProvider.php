@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravolt\Onlyoffice;
+namespace Laravolt\OnlyOffice;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
