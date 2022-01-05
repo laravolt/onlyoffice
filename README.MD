@@ -42,7 +42,7 @@ Tambahkan Environment Groupoffice dan Onlyoffice ke `config/services.php`
 ```
 
 #### Keterangan
-id = id file dari dokumen__
-readonly = digunakan jika menginginkan embedding dengan mode view__
+id = id file dari dokumen\
+readonly = digunakan jika menginginkan embedding dengan mode view\
 
 
