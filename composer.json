@@ -7,12 +7,23 @@
         "laravel",
         "groupoffice"
     ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Moch. Akbar Maulana",
+            "email": "moc.akbar119@gmail.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Laravolt\\Onlyoffice\\": "src/"
         }
     },
-    "require": {},
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^8.0"
+    },
     "extra": {
         "laravel": {
             "providers" : [
