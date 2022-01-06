@@ -3,8 +3,10 @@
 namespace Laravolt\OnlyOffice\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
+
 
 class LoginController extends Controller
 {
@@ -16,7 +18,8 @@ class LoginController extends Controller
         $res = $this->fetchLogin($email, $password);
 
         if ($res->successful()) {
-            $cookie = Cookie::make('isLogin', json_decode($res->body())->response->token, 60*24*365);
+            $carbon = new Carbon(json_decode($res->body())->response->expires);
+            $cookie = Cookie::make('isLogin', json_decode($res->body())->response->token, $carbon->diffInRealMinutes(Carbon::now()));
 
             return redirect()->back()->withCookie($cookie);
         } else {
