@@ -16,7 +16,7 @@ class LoginController extends Controller
         $res = $this->fetchLogin($email, $password);
 
         if ($res->successful()) {
-            $cookie = Cookie::make('isLogin', json_decode($res->body())->response->token, 60);
+            $cookie = Cookie::make('isLogin', json_decode($res->body())->response->token, 60*24*365);
 
             return redirect()->back()->withCookie($cookie);
         } else {
