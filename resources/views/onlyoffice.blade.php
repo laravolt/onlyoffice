@@ -16,7 +16,7 @@
     @else
         <div class="ui two column centered grid">
             <div class="column">
-                {!! form()->post()->route('onlyoffice.login') !!}
+                {!! form()->post()->route('onlyoffice::login') !!}
                 <div class="field">
                     {!! form()->input('email')->placeholder('email') !!}
                 </div>
