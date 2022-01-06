@@ -14,13 +14,14 @@ class OnlyOfficeComponent extends Component
      * @return void
      */
 
-     private int $id;
-     public bool $readOnly;
-     public bool $isLogin = false;
-     public string $urlGroupOffice;
-     public string $urlOnlyOffice;
-     public string $document = "";
-     public $api;
+    private int $id;
+    public bool $readOnly;
+    public bool $isLogin = false;
+    public string $urlGroupOffice;
+    public string $urlOnlyOffice;
+    public string $document = "";
+    public $api;
+
     public function __construct($id, $readonly = false)
     {
         $this->id = $id;
@@ -38,6 +39,7 @@ class OnlyOfficeComponent extends Component
     {
         $this->checkIsLogin();
         $this->isModeView($this->readOnly);
+
         return view('onlyoffice::onlyoffice');
     }
 
@@ -45,16 +47,18 @@ class OnlyOfficeComponent extends Component
     {
         $res = Http::withHeaders(['Authorization' => $token])
                     ->get($this->urlGroupOffice."/api/2.0/files/file/$id/openedit");
+
         return $this->api = $res;
     }
 
     public function isModeView($mode)
     {
-        if($mode && $this->api) {
+        if ($mode && $this->api) {
             $apiJson = json_decode($this->api->body());
             $apiJson->response->editorConfig->mode = "view";
+
             return $this->document = json_encode($apiJson);
-        } else if ($this->api) {
+        } elseif ($this->api) {
             return $this->document = $this->api->body();
         }
     }
@@ -64,12 +68,12 @@ class OnlyOfficeComponent extends Component
         $login = Cookie::get('isLogin');
         if ($login) {
             $this->fetchApi($this->id, $login);
+
             return $this->isLogin = true;
         } else {
             $this->api = false;
+
             return $this->isLogin = false;
         }
-
     }
-
 }
