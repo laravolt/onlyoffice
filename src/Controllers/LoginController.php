@@ -6,14 +6,14 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 
-class OnlyOfficeController extends Controller
+class LoginController extends Controller
 {
-    public function onlyOfficeLogin()
+    public function store()
     {
         $email = request()->email;
         $password = request()->password;
 
-        $res = $this->loginOnlyOffice($email, $password);
+        $res = $this->fetchLogin($email, $password);
 
         if ($res->successful()) {
             $cookie = Cookie::make('isLogin', json_decode($res->body())->response->token, 60);
@@ -24,7 +24,7 @@ class OnlyOfficeController extends Controller
         }
     }
 
-    public function loginOnlyOffice($email, $password)
+    private function fetchLogin($email, $password)
     {
         $res = Http::post(config()->get('services.onlyoffice.groupoffice_url')."/api/2.0/authentication", [
             "username" => $email,
