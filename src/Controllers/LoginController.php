@@ -6,7 +6,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
-
+use Laravolt\OnlyOffice\Models\OnlyOfficeTokens;
 
 class LoginController extends Controller
 {
@@ -18,10 +18,16 @@ class LoginController extends Controller
         $res = $this->fetchLogin($email, $password);
 
         if ($res->successful()) {
-            $carbon = new Carbon(json_decode($res->body())->response->expires);
-            $cookie = Cookie::make('isLogin', json_decode($res->body())->response->token, $carbon->diffInRealMinutes(Carbon::now()));
+            $resJson = json_decode($res->body())->response;
 
-            return redirect()->back()->withCookie($cookie);
+            // TODO SAVE TOKEN AND EXPIRED TOKEN TO DB
+            $onlyOfficeTokens = new OnlyOfficeTokens();
+            $onlyOfficeTokens->user_id = auth()->id();
+            $onlyOfficeTokens->token = $resJson->token;
+            $onlyOfficeTokens->expired_at = $resJson->expires;
+            $onlyOfficeTokens->save();
+
+            return redirect()->back()->withSuccess('Successfully connect to onlyoffice');
         } else {
             return redirect()->back()->withErrors('Email or password in correct');
         }

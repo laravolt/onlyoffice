@@ -2,9 +2,10 @@
 
 namespace Laravolt\OnlyOffice;
 
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\View\Component;
+use Laravolt\OnlyOffice\Models\OnlyOfficeTokens;
 
 class OnlyOfficeComponent extends Component
 {
@@ -65,14 +66,18 @@ class OnlyOfficeComponent extends Component
 
     private function checkIsLogin()
     {
-        $login = Cookie::get('isLogin');
-        if ($login) {
-            $this->fetchApi($this->id, $login);
 
-            return $this->isLogin = true;
+        $onlyOfficeToken = OnlyOfficeTokens::find(auth()->id());
+        if ($onlyOfficeToken && $onlyOfficeToken->token) {
+            if (Carbon::parse($onlyOfficeToken->expired_at)->isPast()) {
+                $this->api = false;
+                return $this->isLogin = false;
+            } else {
+                $this->fetchApi($this->id, $onlyOfficeToken->token);
+                return $this->isLogin = true;
+            }
         } else {
             $this->api = false;
-
             return $this->isLogin = false;
         }
     }
