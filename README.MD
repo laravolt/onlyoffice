@@ -19,6 +19,12 @@ GROUPOFFICE_URL=domain.groupoffice.com
 ONLYOFFICE_URL=domain.onlyoffice.com
 ```
 
+Jalankan artisan migrate untuk membuat tabel onlyoffice_tokens di database./
+Pastikan tabel users sudah termigrate di database.
+```
+php artisan migrate
+```
+
 Masukan isLogin di except `App/Http/Middleware/EncryptCookies.php`
 ```php
 $except = ['isLogin']
