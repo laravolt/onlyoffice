@@ -26,6 +26,7 @@ class OnlyOfficeServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'onlyoffice');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations/2022_01_10_021527_create_onlyoffice_tokens_table.php');
         Blade::component('onlyoffice', OnlyOfficeComponent::class);
     }
 }

@@ -14,7 +14,7 @@ class OnlyOfficeComponent extends Component
      * @return void
      */
 
-    private string $id;
+    private int $id;
     public bool $readOnly;
     public bool $isLogin = false;
     public string $urlGroupOffice;
