@@ -49,7 +49,12 @@ class OnlyOfficeComponent extends Component
         $res = Http::withHeaders(['Authorization' => $token])
                     ->get($this->urlGroupOffice."/api/2.0/files/file/$id/openedit");
 
-        return $this->api = $res;
+        if($res->successful()) {
+            $this->isLogin = true;
+            return $this->api = $res;
+        } else {
+            return $this->isLogin = false;
+        }
     }
 
     public function isModeView($mode)
@@ -73,8 +78,7 @@ class OnlyOfficeComponent extends Component
                 $this->api = false;
                 return $this->isLogin = false;
             } else {
-                $this->fetchApi($this->id, $onlyOfficeToken->token);
-                return $this->isLogin = true;
+                return $this->fetchApi($this->id, $onlyOfficeToken->token);
             }
         } else {
             $this->api = false;
