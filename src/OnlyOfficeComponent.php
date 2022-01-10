@@ -51,28 +51,34 @@ class OnlyOfficeComponent extends Component
 
         if($res->successful()) {
             $this->isLogin = true;
-            return $this->api = $res;
+        } elseif ($res->status() == 401) {
+            $this->isLogin = false;
         } else {
-            return $this->isLogin = false;
+            $this->isLogin = true;
         }
+        return $this->api = $res;
     }
 
     public function isModeView($mode)
     {
         if ($mode && $this->api) {
-            $apiJson = json_decode($this->api->body());
-            $apiJson->response->editorConfig->mode = "view";
+            if ($this->api->successful()) {
+                $apiJson = json_decode($this->api->body());
+                $apiJson->response->editorConfig->mode = "view";
 
-            return $this->document = json_encode($apiJson);
+                return $this->document = json_encode($apiJson);
+            }
         } elseif ($this->api) {
             return $this->document = $this->api->body();
+        } else {
+            return $this->api;
         }
     }
 
     private function checkIsLogin()
     {
 
-        $onlyOfficeToken = OnlyOfficeTokens::find(auth()->id());
+        $onlyOfficeToken = OnlyOfficeTokens::where('user_id', auth()->id())->first();
         if ($onlyOfficeToken && $onlyOfficeToken->token) {
             if (Carbon::parse($onlyOfficeToken->expired_at)->isPast()) {
                 $this->api = false;

@@ -24,7 +24,7 @@
                     {!! form()->input('password')->type("password")->placeholder('passowrd') !!}
                 </div>
                 <div class="field">
-                    {!! form()->submit('login')->addClass('fluid') !!}
+                    {!! form()->submit('Connect')->addClass('fluid') !!}
                 </div>
                 {!! form()->close() !!}
             </div>

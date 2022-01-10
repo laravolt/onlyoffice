@@ -20,12 +20,22 @@ class LoginController extends Controller
         if ($res->successful()) {
             $resJson = json_decode($res->body())->response;
 
-            // TODO SAVE TOKEN AND EXPIRED TOKEN TO DB
-            $onlyOfficeTokens = new OnlyOfficeTokens();
-            $onlyOfficeTokens->user_id = auth()->id();
-            $onlyOfficeTokens->token = $resJson->token;
-            $onlyOfficeTokens->expired_at = $resJson->expires;
-            $onlyOfficeTokens->save();
+            // Search if auth with token is alreayd exists.
+            $onlyOfficeToken = OnlyOfficeTokens::where('user_id', auth()->id())->first();
+
+            if($onlyOfficeToken) {
+                // Update token
+                $onlyOfficeToken->token = $resJson->token;
+                $onlyOfficeToken->expired_at = $resJson->expires;
+                $onlyOfficeToken->save();
+            } else {
+                // TODO SAVE TOKEN AND EXPIRED TOKEN TO DB
+                $newOnlyOfficeToken = new OnlyOfficeTokens();
+                $newOnlyOfficeToken->user_id = auth()->id();
+                $newOnlyOfficeToken->token = $resJson->token;
+                $newOnlyOfficeToken->expired_at = $resJson->expires;
+                $newOnlyOfficeToken->save();
+            }
 
             return redirect()->back()->withSuccess('Successfully connect to onlyoffice');
         } else {
