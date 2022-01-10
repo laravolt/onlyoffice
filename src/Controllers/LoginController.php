@@ -29,7 +29,7 @@ class LoginController extends Controller
                 $onlyOfficeToken->expired_at = $resJson->expires;
                 $onlyOfficeToken->save();
             } else {
-                // TODO SAVE TOKEN AND EXPIRED TOKEN TO DB
+                // Create New Row and save to db
                 $newOnlyOfficeToken = new OnlyOfficeTokens();
                 $newOnlyOfficeToken->user_id = auth()->id();
                 $newOnlyOfficeToken->token = $resJson->token;

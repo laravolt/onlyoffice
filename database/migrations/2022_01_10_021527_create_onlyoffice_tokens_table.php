@@ -17,7 +17,7 @@ class CreateOnlyOfficeTokensTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('token');
-            $table->string('expired_at');
+            $table->dateTime('expired_at');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
