@@ -1,12 +1,13 @@
 <?php
+
 return [
     'menu' => [
         'enabled' => true,
-        'label' => 'only',
     ],
     'collections' => [
         'template' => [
             'label' => 'Templates',
+            'icon' => 'mail-bulk'
         ],
     ],
 ];
