@@ -4,9 +4,20 @@ namespace Laravolt\OnlyOffice\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Laravolt\OnlyOffice\Models\OnlyOfficeTokens;
 
 class TemplateController extends Controller
 {
+    private string $token;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->token = OnlyOfficeTokens::where('user_id', auth()->id())->first()->token;
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,9 +44,9 @@ class TemplateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        dd($request->all(), $id);
     }
 
     /**
