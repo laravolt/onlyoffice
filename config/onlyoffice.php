@@ -13,16 +13,6 @@ return [
         'enabled' => true,
     ],
     'collections' => [
-        '13' => 'Template',
-        '15' => 'Invoice'
-        // 'template' => [
-        //     'label' => '13',
-        // ],
-        // 'cv' => [
-        //     'label' => '14'
-        // ],
-        // 'invoice' => [
-        //     'label' => '15',
-        // ]
+        config()->get('services.onlyoffice.template_folder_id') => 'Template',
     ],
 ];
