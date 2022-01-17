@@ -22,6 +22,7 @@ class OnlyOfficeServiceProvider extends BaseServiceProvider
     public function boot()
     {
         parent::boot();
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations/2022_01_10_021527_create_onlyoffice_tokens_table.php');
         Blade::component('onlyoffice', OnlyOfficeComponent::class);
         Livewire::component('template-table', TemplateTableView::class);
     }
