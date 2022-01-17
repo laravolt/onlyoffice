@@ -3,7 +3,9 @@
 namespace Laravolt\OnlyOffice;
 
 use Illuminate\Support\Facades\Blade;
+use Laravolt\OnlyOffice\TableView\TemplateTableView;
 use Laravolt\Support\Base\BaseServiceProvider;
+use Livewire\Livewire;
 
 class OnlyOfficeServiceProvider extends BaseServiceProvider
 {
@@ -21,6 +23,7 @@ class OnlyOfficeServiceProvider extends BaseServiceProvider
     {
         parent::boot();
         Blade::component('onlyoffice', OnlyOfficeComponent::class);
+        Livewire::component('template-table', TemplateTableView::class);
     }
 
     protected function menu()

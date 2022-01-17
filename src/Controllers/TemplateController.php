@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
 use Laravolt\OnlyOffice\Models\OnlyOfficeTokens;
+use Laravolt\OnlyOffice\TableView\TemplateTableView;
 
 class TemplateController extends Controller
 {
@@ -26,7 +27,8 @@ class TemplateController extends Controller
      */
     public function index($id)
     {
-        return view('onlyoffice::templates.index', compact('id'));
+        $token = $this->token;
+        return view('onlyoffice::templates.index', compact('id', 'token'));
     }
 
     /**
@@ -47,6 +49,10 @@ class TemplateController extends Controller
      */
     public function store(Request $request, $id)
     {
+        $request->validate([
+            'file' => 'required',
+        ]);
+
         $res = Http::withHeaders(["Authorization" => $this->token])
                     ->attach('file', file_get_contents($request->file), $request->file->getClientOriginalName())
                     ->post(config()->get('services.onlyoffice.groupoffice_url')."/api/2.0/files/$id/upload");
@@ -63,9 +69,9 @@ class TemplateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $template)
     {
-        //
+        return view('onlyoffice::templates.show', compact('id', 'template'));
     }
 
     /**
@@ -74,9 +80,9 @@ class TemplateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $template)
     {
-        //
+        return view('onlyoffice::templates.edit', compact('id', 'template'));
     }
 
     /**
@@ -97,8 +103,14 @@ class TemplateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $template)
     {
-        //
+        $res = Http::withHeaders(["Authorization" => $this->token])
+                            ->delete(config()->get('services.onlyoffice.groupoffice_url')."/api/2.0/files/file/$template");
+        if ($res->successful()) {
+            return redirect()->back()->withSuccess('Berhasil menghapus file');
+        } else {
+            return redirect()->back()->withErrors('Gagal menghapus file');
+        }
     }
 }
