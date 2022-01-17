@@ -33,8 +33,9 @@ class OnlyOfficeServiceProvider extends BaseServiceProvider
                 // ->data('permission', config('laravolt.lookup.permission'));
 
             foreach (config('laravolt.onlyoffice.collections') as $key => $collection) {
-                $menu = $group->add($collection['label'], url("lookup/{$key}"))
-                    ->active('lookup/'.$key.'/*');
+                // dd($key, $collection);
+                $menu = $group->add($collection, url($key . '/' . lcfirst($collection)))
+                    ->active($key.'/*');
                 foreach ($collection['data'] ?? [] as $dataKey => $dataValue) {
                     $menu->data($dataKey, $dataValue);
                 }
