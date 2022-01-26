@@ -3,8 +3,6 @@
 namespace Laravolt\OnlyOffice\Controllers;
 
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 use Laravolt\OnlyOffice\Models\OnlyOfficeTokens;
 
@@ -23,7 +21,7 @@ class LoginController extends Controller
             // Search if auth with token is alreayd exists.
             $onlyOfficeToken = OnlyOfficeTokens::where('user_id', auth()->id())->first();
 
-            if($onlyOfficeToken) {
+            if ($onlyOfficeToken) {
                 // Update token
                 $onlyOfficeToken->token = $resJson->token;
                 $onlyOfficeToken->expired_at = $resJson->expires;

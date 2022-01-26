@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
 use Laravolt\OnlyOffice\Models\OnlyOfficeTokens;
-use Laravolt\OnlyOffice\TableView\TemplateTableView;
 
 class TemplateController extends Controller
 {
@@ -16,6 +15,7 @@ class TemplateController extends Controller
     {
         $this->middleware(function ($request, $next) {
             $this->token = OnlyOfficeTokens::where('user_id', auth()->id())->first()->token;
+
             return $next($request);
         });
     }
@@ -28,6 +28,7 @@ class TemplateController extends Controller
     public function index($id)
     {
         $token = $this->token;
+
         return view('onlyoffice::templates.index', compact('id', 'token'));
     }
 

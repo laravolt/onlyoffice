@@ -2,10 +2,10 @@
 
 namespace Laravolt\OnlyOffice\TableView;
 
-use Laravolt\Ui\TableView;
 use Illuminate\Support\Facades\Http;
 use Laravolt\Suitable\Columns\Raw;
 use Laravolt\Suitable\Columns\Text;
+use Laravolt\Ui\TableView;
 
 class TemplateTableView extends TableView
 {
@@ -28,11 +28,11 @@ class TemplateTableView extends TableView
         return [
             Text::make('title', 'name'),
             Text::make('id', 'File Id'),
-            Raw::make(function($file) {
+            Raw::make(function ($file) {
                 return '<a href="'.route('onlyoffice::template.edit', ['id' => $this->folderId, 'template' => $file->id]).'">Edit</a>
                 <a href="'.route('onlyoffice::template.show', ['id' => $this->folderId, 'template' => $file->id]).'">Show</a>
                 <a href="#" data-id="'.$file->id.'" class="link-delete">Delete</a>';
-            }, 'Action')
+            }, 'Action'),
         ];
     }
 }

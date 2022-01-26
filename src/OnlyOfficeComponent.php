@@ -49,13 +49,14 @@ class OnlyOfficeComponent extends Component
         $res = Http::withHeaders(['Authorization' => $token])
                     ->get($this->urlGroupOffice."/api/2.0/files/file/$id/openedit");
 
-        if($res->successful()) {
+        if ($res->successful()) {
             $this->isLogin = true;
         } elseif ($res->status() == 401) {
             $this->isLogin = false;
         } else {
             $this->isLogin = true;
         }
+
         return $this->api = $res;
     }
 
@@ -77,17 +78,18 @@ class OnlyOfficeComponent extends Component
 
     private function checkIsLogin()
     {
-
         $onlyOfficeToken = OnlyOfficeTokens::where('user_id', auth()->id())->first();
         if ($onlyOfficeToken && $onlyOfficeToken->token) {
             if (Carbon::parse($onlyOfficeToken->expired_at)->isPast()) {
                 $this->api = false;
+
                 return $this->isLogin = false;
             } else {
                 return $this->fetchApi($this->id, $onlyOfficeToken->token);
             }
         } else {
             $this->api = false;
+
             return $this->isLogin = false;
         }
     }

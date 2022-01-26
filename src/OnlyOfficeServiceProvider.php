@@ -34,7 +34,7 @@ class OnlyOfficeServiceProvider extends BaseServiceProvider
             $group = $menu->add(__('OnlyOffice'))
                 ->data('icon', 'file-alt')
                 ->data('order', 1);
-                // ->data('permission', config('laravolt.lookup.permission'));
+            // ->data('permission', config('laravolt.lookup.permission'));
 
             foreach (config('laravolt.onlyoffice.collections') as $key => $collection) {
                 // dd($key, $collection);
