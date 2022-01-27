@@ -51,12 +51,12 @@ class TemplateController extends Controller
     public function store(Request $request, $id)
     {
         $request->validate([
-            'file' => 'required',
+            'file.*' => 'required|mimes:doc,docx',
         ]);
 
         $res = Http::withHeaders(["Authorization" => $this->token])
                     ->attach('file', file_get_contents($request->file), $request->file->getClientOriginalName())
-                    ->post(config()->get('services.onlyoffice.groupoffice_url')."/api/2.0/files/$id/upload");
+                    ->post(config()->get('services.onlyoffice.onlyoffice_url')."/api/2.0/files/$id/upload");
         if ($res->successful()) {
             return redirect()->to(route('onlyoffice::template.index', $id))->withSuccess('Berhasil upload templates');
         } else {
@@ -72,7 +72,9 @@ class TemplateController extends Controller
      */
     public function show($id, $template)
     {
-        return view('onlyoffice::templates.show', compact('id', 'template'));
+        $open = "show";
+
+        return view('onlyoffice::templates.open', compact('id', 'template', 'open'));
     }
 
     /**
@@ -83,19 +85,9 @@ class TemplateController extends Controller
      */
     public function edit($id, $template)
     {
-        return view('onlyoffice::templates.edit', compact('id', 'template'));
-    }
+        $open = "edit";
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return view('onlyoffice::templates.open', compact('id', 'template', 'open'));
     }
 
     /**
@@ -107,7 +99,7 @@ class TemplateController extends Controller
     public function destroy($id, $template)
     {
         $res = Http::withHeaders(["Authorization" => $this->token])
-                            ->delete(config()->get('services.onlyoffice.groupoffice_url')."/api/2.0/files/file/$template");
+                            ->delete(config()->get('services.onlyoffice.onlyoffice_url')."/api/2.0/files/file/$template");
         if ($res->successful()) {
             return redirect()->back()->withSuccess('Berhasil menghapus file');
         } else {

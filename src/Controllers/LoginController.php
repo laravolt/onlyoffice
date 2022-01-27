@@ -43,7 +43,7 @@ class LoginController extends Controller
 
     private function fetchLogin($email, $password)
     {
-        $res = Http::post(config()->get('services.onlyoffice.groupoffice_url')."/api/2.0/authentication", [
+        $res = Http::post(config()->get('services.onlyoffice.onlyoffice_url')."/api/2.0/authentication", [
             "username" => $email,
             "password" => $password,
         ]);

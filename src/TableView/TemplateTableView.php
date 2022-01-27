@@ -15,7 +15,7 @@ class TemplateTableView extends TableView
     public function data()
     {
         $res = Http::withHeaders(["Authorization" => $this->token])
-                    ->get(config()->get('services.onlyoffice.groupoffice_url')."/api/2.0/files/$this->folderId");
+                    ->get(config()->get('services.onlyoffice.onlyoffice_url')."/api/2.0/files/$this->folderId");
         if ($res->successful()) {
             return json_decode($res->body())->response->files;
         } else {

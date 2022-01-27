@@ -6,7 +6,6 @@ use Laravolt\OnlyOffice\Controllers\TemplateController;
 Route::post('/onlyoffice/login', [\Laravolt\OnlyOffice\Controllers\LoginController::class, 'store'])
     ->middleware('web')
     ->name('onlyoffice::login');
-// Route::get('/{id}/template', [TemplateController::class, 'index']);
 
 Route::group([
     'prefix' => config('laravolt.onlyoffice.routes.prefix'),

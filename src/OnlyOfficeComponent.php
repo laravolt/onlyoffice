@@ -18,16 +18,15 @@ class OnlyOfficeComponent extends Component
     private int $id;
     public bool $readOnly;
     public bool $isLogin = false;
-    public string $urlGroupOffice;
     public string $urlOnlyOffice;
     public string $document = "";
+    public string $docService = "";
     public $api;
 
     public function __construct($id, $readonly = false)
     {
         $this->id = $id;
         $this->readOnly = $readonly;
-        $this->urlGroupOffice = config()->get('services.onlyoffice.groupoffice_url');
         $this->urlOnlyOffice = config()->get('services.onlyoffice.onlyoffice_url');
     }
 
@@ -44,10 +43,10 @@ class OnlyOfficeComponent extends Component
         return view('onlyoffice::onlyoffice');
     }
 
-    public function fetchApi($id, $token)
+    private function fetchApi($id, $token)
     {
         $res = Http::withHeaders(['Authorization' => $token])
-                    ->get($this->urlGroupOffice."/api/2.0/files/file/$id/openedit");
+                    ->get($this->urlOnlyOffice."/api/2.0/files/file/$id/openedit");
 
         if ($res->successful()) {
             $this->isLogin = true;
@@ -60,7 +59,7 @@ class OnlyOfficeComponent extends Component
         return $this->api = $res;
     }
 
-    public function isModeView($mode)
+    private function isModeView($mode)
     {
         if ($mode && $this->api) {
             if ($this->api->successful()) {
@@ -85,6 +84,9 @@ class OnlyOfficeComponent extends Component
 
                 return $this->isLogin = false;
             } else {
+                $res = $this->getDocService($onlyOfficeToken->token);
+                $this->docService = json_decode($res)->response;
+
                 return $this->fetchApi($this->id, $onlyOfficeToken->token);
             }
         } else {
@@ -92,5 +94,13 @@ class OnlyOfficeComponent extends Component
 
             return $this->isLogin = false;
         }
+    }
+
+    private function getDocService($token)
+    {
+        $res = Http::withHeaders(['Authorization' => $token])
+                ->get($this->urlOnlyOffice."/api/2.0/files/docservice");
+
+        return $res->body();
     }
 }
