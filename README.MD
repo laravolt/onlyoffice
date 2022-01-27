@@ -36,6 +36,32 @@ Tambahkan Environment Groupoffice dan Onlyoffice ke `config/services.php`
 ]
 ```
 
+## Enable Laravolt OnlyOffice
+buka file `platform.php`  di `config/laravolt/platform.php`,
+jika belum ada file tersebut, publish vendor `laravolt/config` dengan cara
+```
+php artisan vendor:publsih
+```
+copy perintah diatas kemudian paste pada terminal project aplikasi laravolt.
+pilih nomor yang keteranganya Tag: laravolt-config
+
+```
+...
+[43] Tag: laravolt-config
+...
+```
+
+kemudian tambahkan `'onlyoffice' => true` pada array features.
+
+example :
+```php
+'features' => [
+        ...
+        'onlyoffice' => true,
+        ...
+],
+```
+
 ## Usage
 ```html
 <!-- Embeded Onlyoffice -->
