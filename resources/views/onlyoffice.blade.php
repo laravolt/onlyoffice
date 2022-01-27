@@ -1,5 +1,5 @@
 @push('head')
-    <script id="scriptApi" type="text/javascript" src="{!! $urlOnlyOffice !!}/web-apps/apps/api/documents/api.js"></script>
+    <script id="scriptApi" type="text/javascript" src="{!! $docService !!}"></script>
 @endpush
 
 <div style="height: 100vh">
@@ -48,10 +48,19 @@
 
 @push('script')
     <script>
+        var onRequestClose = function () {
+            if (window.opener) {
+                window.close();
+                return;
+            }
+            docEditor.destroyEditor();
+        };
+
         @if ($api)
             @if($api->successful())
                 const api = JSON.parse(@json($document));
-                new DocsAPI.DocEditor("placeholder", api.response);
+                const config = {...api.response, "events": {"onRequestClose": onRequestClose}};
+                new DocsAPI.DocEditor("placeholder", config);
             @endif
         @endif
     </script>

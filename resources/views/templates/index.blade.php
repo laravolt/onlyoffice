@@ -13,7 +13,7 @@
             $(document).ready(function() {
                 $(".link-delete").click(function() {
                     const {id} = $(this).data();
-                    $(".form-delete").attr("action", `/{{$id}}/template/${id}`);
+                    $(".form-delete").attr("action", `/{{ $id }}/template/${id}`);
                     $(".form-delete").submit();
                 })
             })
