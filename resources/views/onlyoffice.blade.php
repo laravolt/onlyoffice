@@ -1,6 +1,4 @@
-@push('head')
-    <script id="scriptApi" type="text/javascript" src="{!! $docService !!}"></script>
-@endpush
+<script id="scriptApi" type="text/javascript" src="{!! $docService !!}"></script>
 
 <div style="height: 100vh">
     @if ($isLogin)
@@ -32,36 +30,32 @@
     @endif
 </div>
 
-@push('style')
-    <style>
-        .error {
-            height: 300px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 800;
-            font-size: 3rem;
-        };
-    </style>
-@endpush
+<style>
+    .error {
+        height: 300px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 800;
+        font-size: 3rem;
+    };
+</style>
 
-@push('script')
-    <script>
-        var onRequestClose = function () {
-            if (window.opener) {
-                window.close();
-                return;
-            }
-            docEditor.destroyEditor();
-        };
+<script>
+    var onRequestClose = function () {
+        if (window.opener) {
+            window.close();
+            return;
+        }
+        docEditor.destroyEditor();
+    };
 
-        @if ($api)
-            @if($api->successful())
-                const api = JSON.parse(@json($document));
-                const config = {...api.response, "events": {"onRequestClose": onRequestClose}};
-                new DocsAPI.DocEditor("placeholder", config);
-            @endif
+    @if ($api)
+        @if($api->successful())
+            const api = JSON.parse(@json($document));
+            const config = {...api.response, "events": {"onRequestClose": onRequestClose}};
+            new DocsAPI.DocEditor("placeholder", config);
         @endif
-    </script>
-@endpush
+    @endif
+</script>
